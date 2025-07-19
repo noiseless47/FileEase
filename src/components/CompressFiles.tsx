@@ -373,30 +373,6 @@ export default function CompressFiles() {
           )}
         </div>
       )}
-
-      <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
-        <h3 className="text-lg font-medium mb-4">How It Works</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h4 className="font-medium mb-2">Image Optimization</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Intelligently reduces image resolution and applies optimal compression while preserving readability.
-            </p>
-          </div>
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h4 className="font-medium mb-2">Structure Optimization</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Streamlines PDF structure, removes redundant information, and optimizes internal streams.
-            </p>
-          </div>
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h4 className="font-medium mb-2">Privacy First</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Your PDFs never leave your device - all compression happens locally in your browser and on your machine.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 } 

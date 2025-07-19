@@ -143,13 +143,13 @@ export default function Home() {
                     
                     <li className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-violet-500/10 dark:bg-violet-500/20 flex items-center justify-center text-violet-600 dark:text-violet-400">
-                        <IconFileDescription className="w-6 h-6" stroke={1.5} />
+                        <IconFileZip className="w-6 h-6" stroke={1.5} />
                       </div>
                       <div>
-                        <h4 className="font-medium">File Information</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">View detailed metadata of your files</p>
+                        <h4 className="font-medium">ZIP/UNZIP Files</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Create and extract ZIP archives</p>
                       </div>
-                      <Link href="/features" className="ml-auto">
+                      <Link href="/zip-unzip" className="ml-auto">
                         <Button 
                           size="sm"
                           variant="ghost" 
@@ -163,11 +163,11 @@ export default function Home() {
                     
                     <li className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400">
-                        <IconFiles className="w-6 h-6" stroke={1.5} />
+                        <IconFileDescription className="w-6 h-6" stroke={1.5} />
                       </div>
                       <div>
-                        <h4 className="font-medium">File Conversion</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Convert between common file formats</p>
+                        <h4 className="font-medium">File Information</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">View detailed metadata of your files</p>
                       </div>
                       <Link href="/features" className="ml-auto">
                         <Button 
@@ -231,11 +231,11 @@ export default function Home() {
                     
                     <li className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-pink-600 dark:text-pink-400">
-                        <IconFileZip className="w-6 h-6" stroke={1.5} />
+                        <IconFiles className="w-6 h-6" stroke={1.5} />
                       </div>
                       <div>
-                        <h4 className="font-medium">Advanced Archive Management</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Create and extract various archive formats</p>
+                        <h4 className="font-medium">File Conversion</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Convert between common file formats</p>
                       </div>
                       <span className="ml-auto px-2 py-1 text-xs rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
                         Soon
