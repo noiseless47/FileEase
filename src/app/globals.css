@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DM Sans font application site-wide */
+html * {
+  font-family: var(--font-dm-sans), system-ui, sans-serif !important;
+}
+
+/* Performance optimizations - disable smooth scrolling completely */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+  /* Add hardware acceleration and reduce repaints */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  scroll-behavior: auto !important; /* Force disable smooth scrolling */
+}
+
+/* Typewriter cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Force hardware acceleration for all animated elements */
+.motion-safe * {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Optimize fixed elements to use GPU layers */
+.fixed {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+/* Remove media query and use dark class instead */
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 20;
+  --background-end-rgb: 5, 5, 15;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    );
+  font-family: var(--font-dm-sans), Arial, sans-serif;
+  /* Allow transitions for theme changes */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Completely disable all animations if performance issues persist */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Animation delays for staggered animations */
+.animation-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-1500 {
+  animation-delay: 1.5s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Disable smooth scrolling completely */
+html {
+  scroll-behavior: auto !important;
+  scroll-padding-top: 80px; /* For fixed header */
+}
+
+.perspective-500 {
+  perspective: 500px;
+}
+
+/* Glass morphism - optimized for performance */
+.glass {
+  @apply bg-white/70 dark:bg-gray-800/70;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateZ(0);
+}
+
+.glass-dark {
+  @apply dark:bg-gray-900/60;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateZ(0);
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply text-pink-600 dark:text-pink-400;
+  line-height: 1.2;
+  padding-bottom: 0.1em;
+  background-clip: text;
+}
+
+/* Title with natural flowing underline */
+.title-with-flowing-underline {
+  display: inline;
+  position: relative;
+  text-decoration: none; /* Remove default underline */
+  padding-bottom: 8px;
+}
+
+.title-with-flowing-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-image: linear-gradient(to right, #ec4899, #d946ef); 
+  border-radius: 3px;
+}
+
+/* Hover effects - simplified but still nice */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border border-pink-500 text-pink-600 dark:text-pink-400 rounded-lg hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors;
+}
+
+/* Footer link styles */
+.footer-link {
+  @apply text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors text-sm relative;
+  position: relative;
+}
+
+.footer-link::after {
+  content: "";
+  @apply bg-pink-500;
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all;
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
