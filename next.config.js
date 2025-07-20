@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   reactStrictMode: true,
   trailingSlash: false,
   compress: true,
@@ -14,4 +13,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig; 
+module.exports = nextConfig; 

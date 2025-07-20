@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import ZipUnzip from '@/components/ZipUnzip';
 import { 
   IconZip,
@@ -16,7 +16,7 @@ import {
 } from '@tabler/icons-react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ZipUnzipPage() {
+function ZipUnzipContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get('tab');
   const [activeTab, setActiveTab] = useState('zip');
@@ -343,5 +343,13 @@ export default function ZipUnzipPage() {
         </section>
       </main>
     </div>
+  );
+}
+
+export default function ZipUnzipPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ZipUnzipContent />
+    </Suspense>
   );
 } 
