@@ -13,7 +13,8 @@ import {
   IconDeviceLaptop,
   IconAdjustments,
   IconFiles,
-  IconLock
+  IconLock,
+  IconRocket
 } from "@tabler/icons-react";
 
 export default function Features() {
@@ -88,7 +89,7 @@ export default function Features() {
                           <span>Secure & private processing</span>
                         </li>
                       </ul>
-                      <Link href="/compression">
+                      <Link href="/zip-unzip?tab=zip">
                         <Button 
                           variant="gradient"
                           fullWidth
@@ -184,12 +185,16 @@ export default function Features() {
                           <span>Batch processing</span>
                         </li>
                       </ul>
-                      <Button 
-                        variant="outline"
-                        fullWidth
-                      >
-                        Coming Soon
-                      </Button>
+                      <Link href="/image-compression">
+                        <Button 
+                          variant="gradient"
+                          fullWidth
+                          icon={<IconArrowRight className="w-4 h-4" />}
+                          iconPosition="right"
+                        >
+                          Compress Images
+                        </Button>
+                      </Link>
                     </div>
                   </Card>
 
@@ -276,12 +281,16 @@ export default function Features() {
                           <span>Batch processing</span>
                         </li>
                       </ul>
-                      <Button 
-                        variant="outline"
-                        fullWidth
-                      >
-                        Coming Soon
-                      </Button>
+                      <Link href="/compression">
+                        <Button 
+                          variant="gradient"
+                          fullWidth
+                          icon={<IconArrowRight className="w-4 h-4" />}
+                          iconPosition="right"
+                        >
+                          Compress PDF
+                        </Button>
+                      </Link>
                     </div>
                   </Card>
 
@@ -351,6 +360,47 @@ export default function Features() {
         {/* Comparison Section */}
         <section className="py-16 bg-gray-50 dark:bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-display font-bold mb-4">
+                Key Benefits
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Our tools are designed with these core principles in mind
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+              <div className="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-4">
+                  <IconLock size={24} stroke={1.5} />
+                </div>
+                <h3 className="text-lg font-medium mb-2">Secure & Private</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Your files are processed securely with advanced encryption. We prioritize your privacy and data security at every step.
+                </p>
+              </div>
+              
+              <div className="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-4">
+                  <IconRocket size={24} stroke={1.5} />
+                </div>
+                <h3 className="text-lg font-medium mb-2">Fast Processing</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Optimized algorithms ensure quick and efficient processing of your files, saving you valuable time while maintaining quality.
+                </p>
+              </div>
+              
+              <div className="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-4">
+                  <IconDeviceLaptop size={24} stroke={1.5} />
+                </div>
+                <h3 className="text-lg font-medium mb-2">Web-Based Solution</h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  No downloads or installations required. Access powerful file tools directly in your browser from any device.
+                </p>
+              </div>
+            </div>
+
             <div className="text-center mb-12">
               <h2 className="text-3xl font-display font-bold mb-4">
                 Compare Our Features

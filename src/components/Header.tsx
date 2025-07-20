@@ -1,7 +1,8 @@
 "use client";
 
-import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { 
   IconArchive, 
   IconSun, 
@@ -17,7 +18,12 @@ import {
   IconArrowsShuffle,
   IconEye,
   IconLock,
-  IconScan
+  IconScan,
+  IconPhoto,
+  IconDotsCircleHorizontal,
+  IconInfoCircle,
+  IconCoin,
+  IconList
 } from '@tabler/icons-react';
 import { useTheme } from '@/context/ThemeContext';
 
@@ -26,8 +32,10 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toolsDropdownRef = useRef<HTMLDivElement>(null);
+  const moreDropdownRef = useRef<HTMLDivElement>(null);
 
   // Only run on client side
   useEffect(() => {
@@ -43,6 +51,10 @@ export default function Header() {
     const handleClickOutside = (event: MouseEvent) => {
       if (toolsDropdownRef.current && !toolsDropdownRef.current.contains(event.target as Node)) {
         setIsToolsDropdownOpen(false);
+      }
+      
+      if (moreDropdownRef.current && !moreDropdownRef.current.contains(event.target as Node)) {
+        setIsMoreDropdownOpen(false);
       }
     };
 
@@ -62,6 +74,10 @@ export default function Header() {
   const toggleToolsDropdown = () => {
     setIsToolsDropdownOpen(!isToolsDropdownOpen);
   };
+  
+  const toggleMoreDropdown = () => {
+    setIsMoreDropdownOpen(!isMoreDropdownOpen);
+  };
 
   if (!mounted) return null;
 
@@ -70,6 +86,7 @@ export default function Header() {
       title: "Compress",
       items: [
         { name: "Compress PDF", path: "/compression", icon: <IconFile className="w-5 h-5 text-red-500" /> },
+        { name: "Compress Images", path: "/image-compression", icon: <IconPhoto className="w-5 h-5 text-green-500" /> },
       ]
     },
     {
@@ -90,7 +107,8 @@ export default function Header() {
     {
       title: "Security",
       items: [
-        { name: "Secure Files", path: "/features", icon: <IconLock className="w-5 h-5 text-pink-500" /> },
+        { name: "Secure Files", path: "/secure-files", icon: <IconLock className="w-5 h-5 text-pink-500" /> },
+        { name: "Password Protect PDF", path: "/password-protect", icon: <IconLock className="w-5 h-5 text-pink-500" /> },
       ]
     },
     {
@@ -163,17 +181,25 @@ export default function Header() {
             </div>
 
             <Link 
-              href="/features" 
-              className="font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
-            >
-              Features
-            </Link>
-            <Link 
               href="/compression" 
               className="font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
             >
-              Compress
+              <div className="flex items-center">
+                <IconFile className="w-4 h-4 mr-1" />
+                <span>PDF Compress</span>
+              </div>
             </Link>
+            
+            <Link 
+              href="/image-compression" 
+              className="font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
+            >
+              <div className="flex items-center">
+                <IconPhoto className="w-4 h-4 mr-1" />
+                <span>Image Compress</span>
+              </div>
+            </Link>
+            
             <Link 
               href="/zip-unzip" 
               className="font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
@@ -183,18 +209,65 @@ export default function Header() {
                 <span>Zip/Unzip</span>
               </div>
             </Link>
+            
             <Link 
-              href="/pricing" 
+              href="/password-protect" 
               className="font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
             >
-              Pricing
+              <div className="flex items-center">
+                <IconLock className="w-4 h-4 mr-1" />
+                <span>Password PDF</span>
+              </div>
             </Link>
-            <Link 
-              href="/about" 
-              className="font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
-            >
-              About
-            </Link>
+
+            {/* More Dropdown */}
+            <div className="relative" ref={moreDropdownRef}>
+              <button
+                onClick={toggleMoreDropdown}
+                className="flex items-center font-medium text-gray-600 hover:text-pink-600 dark:text-gray-300 dark:hover:text-pink-400 transition-colors"
+              >
+                <IconDotsCircleHorizontal className="w-4 h-4 mr-1" />
+                <span>More</span>
+                <IconChevronDown className={`ml-1 w-4 h-4 transition-transform duration-200 ${isMoreDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isMoreDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700 z-50">
+                  <ul className="py-2">
+                    <li>
+                      <Link 
+                        href="/features" 
+                        onClick={() => setIsMoreDropdownOpen(false)}
+                        className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                      >
+                        <IconList className="w-5 h-5 mr-3 text-gray-500" />
+                        <span>Features</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link 
+                        href="/pricing" 
+                        onClick={() => setIsMoreDropdownOpen(false)}
+                        className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                      >
+                        <IconCoin className="w-5 h-5 mr-3 text-gray-500" />
+                        <span>Pricing</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link 
+                        href="/about" 
+                        onClick={() => setIsMoreDropdownOpen(false)}
+                        className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                      >
+                        <IconInfoCircle className="w-5 h-5 mr-3 text-gray-500" />
+                        <span>About</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </nav>
 
           <div className="flex items-center space-x-4">
@@ -211,7 +284,7 @@ export default function Header() {
             </button>
             
             <a 
-              href="https://github.com/username/fileease"
+              href="https://github.com/noiseless47/fileease"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -273,20 +346,25 @@ export default function Header() {
                 </div>
               )}
             </div>
-            <Link 
-              href="/features" 
-              className="block py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Features
-            </Link>
+
             <Link 
               href="/compression" 
-              className="block py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+              className="flex items-center py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Compression
+              <IconFile className="w-4 h-4 mr-2" />
+              PDF Compress
             </Link>
+
+            <Link 
+              href="/image-compression" 
+              className="flex items-center py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <IconPhoto className="w-4 h-4 mr-2" />
+              Image Compress
+            </Link>
+
             <Link 
               href="/zip-unzip" 
               className="flex items-center py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
@@ -295,20 +373,55 @@ export default function Header() {
               <IconFileZip className="w-4 h-4 mr-2" />
               Zip/Unzip
             </Link>
+
             <Link 
-              href="/pricing" 
-              className="block py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+              href="/password-protect" 
+              className="flex items-center py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Pricing
+              <IconLock className="w-4 h-4 mr-2" />
+              Password PDF
             </Link>
-            <Link 
-              href="/about" 
-              className="block py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </Link>
+
+            <div className="py-2">
+              <button 
+                onClick={() => setIsMoreDropdownOpen(!isMoreDropdownOpen)}
+                className="flex items-center w-full py-2 px-3 rounded-md font-medium text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+              >
+                <IconDotsCircleHorizontal className="w-4 h-4 mr-2" />
+                More
+                <IconChevronDown className={`ml-auto w-4 h-4 transition-transform ${isMoreDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isMoreDropdownOpen && (
+                <div className="mt-2 pl-5 space-y-1">
+                  <Link 
+                    href="/features" 
+                    className="flex items-center py-2 px-3 rounded-md text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <IconList className="w-4 h-4 mr-2" />
+                    Features
+                  </Link>
+                  <Link 
+                    href="/pricing" 
+                    className="flex items-center py-2 px-3 rounded-md text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <IconCoin className="w-4 h-4 mr-2" />
+                    Pricing
+                  </Link>
+                  <Link 
+                    href="/about" 
+                    className="flex items-center py-2 px-3 rounded-md text-gray-600 hover:text-pink-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-pink-400 dark:hover:bg-gray-800 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <IconInfoCircle className="w-4 h-4 mr-2" />
+                    About
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
         </div>
       )}

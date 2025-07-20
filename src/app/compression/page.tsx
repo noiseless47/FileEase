@@ -195,7 +195,7 @@ export default function CompressionPage() {
                   }`}
                 >
                   <IconFileZip className="w-4 h-4 mr-2" />
-                  Compress Files
+                  Compress
                 </button>
                 <button
                   onClick={() => setActiveTab('about')}
@@ -206,7 +206,7 @@ export default function CompressionPage() {
                   }`}
                 >
                   <IconFileCheck className="w-4 h-4 mr-2" />
-                  About Compression
+                  About
                 </button>
               </div>
             </div>
@@ -251,46 +251,44 @@ export default function CompressionPage() {
                       Whether you need to email large files, save storage space, or simply organize your files better, our compression tool provides a fast and convenient solution.
                     </p>
                   </div>
+
+                  <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <h3 className="text-lg font-medium mb-4">Key Benefits</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                      <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                        <div className="w-10 h-10 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-3">
+                          <IconLock size={20} stroke={1.5} />
+                        </div>
+                        <h4 className="font-medium mb-1">Secure & Private</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          All processing happens in your browser. Files never leave your device.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                        <div className="w-10 h-10 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-3">
+                          <IconRocket size={20} stroke={1.5} />
+                        </div>
+                        <h4 className="font-medium mb-1">Fast Processing</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Optimized algorithms ensure quick compression of your files.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                        <div className="w-10 h-10 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-3">
+                          <IconDeviceLaptop size={20} stroke={1.5} />
+                        </div>
+                        <h4 className="font-medium mb-1">No Installation</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Works directly in your browser. No software to download or install.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-8 bg-white dark:bg-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-              <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
-                <div className="w-10 h-10 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-3">
-                  <IconLock size={20} stroke={1.5} />
-                </div>
-                <h3 className="font-medium mb-1">Secure & Private</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  All processing happens in your browser. Files never leave your device.
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
-                <div className="w-10 h-10 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-3">
-                  <IconRocket size={20} stroke={1.5} />
-                </div>
-                <h3 className="font-medium mb-1">Fast Processing</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Optimized algorithms ensure quick compression of your files.
-                </p>
-              </div>
-              
-              <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
-                <div className="w-10 h-10 rounded-full bg-pink-500/10 dark:bg-pink-500/20 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-3">
-                  <IconDeviceLaptop size={20} stroke={1.5} />
-                </div>
-                <h3 className="font-medium mb-1">No Installation</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Works directly in your browser. No software to download or install.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 

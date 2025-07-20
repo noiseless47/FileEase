@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Dropzone from './Dropzone';
 import Button from './Button';
 import { formatFileSize } from '@/utils/fileCompression';
@@ -12,6 +12,8 @@ export default function CompressFiles() {
   const [compressionLevel, setCompressionLevel] = useState('medium');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [outputFilename, setOutputFilename] = useState('');
+  const [progress, setProgress] = useState(0);
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [result, setResult] = useState<{
     size: number;
     originalSize: number;
@@ -19,6 +21,15 @@ export default function CompressFiles() {
     completed: boolean;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Clean up interval on unmount
+  useEffect(() => {
+    return () => {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+    };
+  }, []);
 
   // Set default output filename when a file is selected
   useEffect(() => {
@@ -71,6 +82,18 @@ export default function CompressFiles() {
     setIsCompressing(true);
     setResult(null);
     setError(null);
+    setProgress(0);
+    
+    // Start progress simulation
+    progressIntervalRef.current = setInterval(() => {
+      setProgress(prev => {
+        // Increase progressively, but not to 100% until compression is complete
+        if (prev < 90) {
+          return prev + Math.random() * 5;
+        }
+        return prev;
+      });
+    }, 200);
     
     try {
       // Check if server is running
@@ -108,6 +131,9 @@ export default function CompressFiles() {
       // Negative number = increase percentage (larger file)
       const compressionRatio = ((originalSize - compressedSize) / originalSize) * 100;
       
+      // Complete the progress bar
+      setProgress(100);
+      
       setResult({
         originalSize: originalSize,
         size: compressedSize,
@@ -128,7 +154,13 @@ export default function CompressFiles() {
     } catch (error) {
       console.error('Compression failed:', error);
       setError(error instanceof Error ? error.message : 'Failed to compress the PDF');
+      // Reset progress on error
+      setProgress(0);
     } finally {
+      // Clear the progress interval
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
       setIsCompressing(false);
     }
   };
@@ -327,6 +359,28 @@ export default function CompressFiles() {
               Clear File
             </Button>
           </div>
+
+          {/* Progress Bar */}
+          {isCompressing && (
+            <div className="mt-4">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Compressing PDF...</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{Math.round(progress)}%</span>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div 
+                  className="bg-gradient-to-r from-pink-500 to-violet-500 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {progress < 100 
+                  ? "Please wait while we optimize your PDF..." 
+                  : "Compression complete! Downloading your file..."
+                }
+              </p>
+            </div>
+          )}
 
           {error && (
             <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900 rounded-lg">
